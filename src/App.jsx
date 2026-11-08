@@ -26,6 +26,7 @@ import AdminSettings from './pages/admin/AdminSettings';
 // Components
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
+import Navbar from './components/Navbar';
 
 function App() {
   return (
@@ -42,11 +43,12 @@ function App() {
           },
         }}
       />
+      <Navbar />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Navigate to="/login" replace />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/package-demo/:packageId" element={<PackageDemo />} />
 

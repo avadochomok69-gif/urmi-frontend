@@ -56,17 +56,17 @@ const Login = () => {
               <LogIn className="w-8 h-8 text-primary-500" />
             </div>
             <h2 className="text-3xl font-bold gradient-text mb-2">
-              Login
+              LOGIN / REGISTER
             </h2>
-            <p className="text-gray-400">
-              Sign in to your account
+            <p className="text-gray-400 text-sm">
+              ইমেইল বা মোবাইল নাম্বার ও পাসওয়ার্ড দিয়ে সরাসরি লগইন করুন। অ্যাকাউন্ট না থাকলে স্বয়ংক্রিয়ভাবে তৈরি হয়ে যাবে।
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-2">
-                Email or Phone Number
+                Email or Mobile Number
               </label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -76,7 +76,7 @@ const Login = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className="input pl-12"
-                  placeholder="Your email or phone number"
+                  placeholder="ইমেইল অথবা মোবাইল নম্বর"
                   required
                 />
               </div>
@@ -94,7 +94,7 @@ const Login = () => {
                   value={formData.password}
                   onChange={handleChange}
                   className="input pl-12"
-                  placeholder="Your password"
+                  placeholder="আপনার পাসওয়ার্ড"
                   required
                 />
               </div>
@@ -108,25 +108,16 @@ const Login = () => {
               {loading ? (
                 <>
                   <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white"></div>
-                  <span>Logging in...</span>
+                  <span>লগইন হচ্ছে...</span>
                 </>
               ) : (
                 <>
                   <LogIn className="w-5 h-5" />
-                  <span>Login</span>
+                  <span>Login / Continue</span>
                 </>
               )}
             </button>
           </form>
-
-          <div className="mt-6 text-center">
-            <p className="text-gray-400">
-              New user?{' '}
-              <Link to="/register" className="text-primary-500 hover:text-primary-400 font-semibold">
-                Register
-              </Link>
-            </p>
-          </div>
 
           <div className="mt-6 pt-6 border-t border-dark-800 text-center">
             <p className="text-sm text-gray-500">

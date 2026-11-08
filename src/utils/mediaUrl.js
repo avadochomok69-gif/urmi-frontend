@@ -20,3 +20,4 @@ export const getMediaUrl = (url) => {
   const cleanPath = url.startsWith('/') ? url : `/${url}`;
   return `${backendBase}${cleanPath}`;
 };
+

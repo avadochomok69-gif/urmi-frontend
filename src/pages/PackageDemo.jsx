@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { ArrowLeft, Lock, Crown, Eye, Play } from 'lucide-react';
+import { ArrowLeft, Lock, Crown, Eye, Play, X, Maximize2 } from 'lucide-react';
 import { getMediaUrl } from '../utils/mediaUrl';
 
 /* ─────────────────────────────────────────────
    Media Item Component
 ───────────────────────────────────────────── */
-const MediaItem = ({ item, index }) => {
+const MediaItem = ({ item, index, onOpenPreview }) => {
   const isLocked = item.locked || (item.media_type === 'exclusive' && !item.file_url);
   const isVideo = item.file_type === 'video';
 
@@ -19,7 +19,8 @@ const MediaItem = ({ item, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.05 }}
-      className="relative overflow-hidden rounded-xl"
+      onClick={() => !isLocked && onOpenPreview(item)}
+      className={`relative overflow-hidden rounded-xl group ${!isLocked ? 'cursor-pointer hover:border-red-500/80' : ''}`}
       style={{
         background: 'linear-gradient(145deg, #1a0505, #0d0d0d)',
         border: isLocked ? '1px solid rgba(220,38,38,0.2)' : '1px solid rgba(220,38,38,0.35)',
@@ -27,7 +28,7 @@ const MediaItem = ({ item, index }) => {
       }}
     >
       {/* Media Content */}
-      <div className="relative" style={{ aspectRatio: '4/3' }}>
+      <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
         {isLocked ? (
           /* Locked / Blurred Exclusive Content */
           <div className="w-full h-full relative">
@@ -35,11 +36,9 @@ const MediaItem = ({ item, index }) => {
             <div
               className="absolute inset-0 flex items-center justify-center"
               style={{
-                background: 'linear-gradient(135deg, #2d0000, #1a0000, #0d0d0d)',
-                filter: 'blur(0px)'
+                background: 'linear-gradient(135deg, #2d0000, #1a0000, #0d0d0d)'
               }}
             >
-              {/* Blurred icon suggestion */}
               <div className="absolute inset-0 opacity-20"
                 style={{ backgroundImage: 'repeating-linear-gradient(45deg, #dc2626 0, #dc2626 1px, transparent 0, transparent 50%)', backgroundSize: '8px 8px' }} />
             </div>
@@ -58,30 +57,41 @@ const MediaItem = ({ item, index }) => {
             </div>
           </div>
         ) : isVideo ? (
-          /* Video Player */
-          <video
-            src={getMediaUrl(item.file_url)}
-            controls
-            className="w-full h-full object-cover"
-            style={{ background: '#000' }}
-            poster=""
-          >
-            Your browser does not support video.
-          </video>
+          /* Video Thumbnail / Preview */
+          <div className="relative w-full h-full bg-black flex items-center justify-center">
+            <video
+              src={getMediaUrl(item.file_url)}
+              className="w-full h-full object-cover pointer-events-none"
+              muted
+              playsInline
+            />
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                <Play className="w-6 h-6 ml-0.5" />
+              </div>
+            </div>
+          </div>
         ) : (
           /* Photo */
-          <img
-            src={getMediaUrl(item.file_url)}
-            alt={item.title}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
+          <div className="relative w-full h-full">
+            <img
+              src={getMediaUrl(item.file_url)}
+              alt={item.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+              <div className="w-10 h-10 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-lg">
+                <Maximize2 className="w-5 h-5" />
+              </div>
+            </div>
+          </div>
         )}
 
         {/* Demo badge */}
         {!isLocked && item.media_type === 'demo' && (
-          <div className="absolute top-2 left-2">
-            <span className="text-xs font-bold px-2 py-0.5 rounded-full"
+          <div className="absolute top-2 left-2 z-10">
+            <span className="text-xs font-bold px-2 py-0.5 rounded-full shadow"
               style={{ background: 'rgba(22,163,74,0.85)', color: '#fff' }}>
               {isVideo ? '▶ Demo' : '📷 Demo'}
             </span>
@@ -90,12 +100,12 @@ const MediaItem = ({ item, index }) => {
       </div>
 
       {/* Title */}
-      <div className="px-3 py-2">
-        <p className={`text-sm font-medium ${isLocked ? 'text-gray-600' : 'text-gray-200'}`}>
+      <div className="px-3 py-2 flex items-center justify-between">
+        <p className={`text-sm font-medium truncate ${isLocked ? 'text-gray-600' : 'text-gray-200'}`}>
           {item.title || (isLocked ? 'Exclusive Content' : 'Untitled')}
         </p>
         {isLocked && (
-          <p className="text-xs text-red-700 mt-0.5">🔒 Purchase to unlock</p>
+          <span className="text-xs text-red-700 ml-2 flex-shrink-0">🔒 Locked</span>
         )}
       </div>
     </motion.div>
@@ -112,6 +122,7 @@ const PackageDemo = () => {
   const [media, setMedia] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hasAccess, setHasAccess] = useState(false);
+  const [previewMedia, setPreviewMedia] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -268,7 +279,7 @@ const PackageDemo = () => {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {demoMedia.map((item, idx) => (
-                <MediaItem key={item.id} item={item} index={idx} />
+                <MediaItem key={item.id} item={item} index={idx} onOpenPreview={setPreviewMedia} />
               ))}
             </div>
           </div>
@@ -286,7 +297,7 @@ const PackageDemo = () => {
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {exclusiveMedia.map((item, idx) => (
-                <MediaItem key={item.id} item={item} index={idx} />
+                <MediaItem key={item.id} item={item} index={idx} onOpenPreview={setPreviewMedia} />
               ))}
             </div>
           </div>
@@ -344,6 +355,58 @@ const PackageDemo = () => {
           </motion.div>
         )}
       </div>
+
+      {/* Fullscreen Media Preview Modal */}
+      <AnimatePresence>
+        {previewMedia && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-4"
+            onClick={() => setPreviewMedia(null)}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setPreviewMedia(null)}
+              className="absolute top-4 right-4 z-50 p-3 bg-red-950/80 hover:bg-red-900 border border-red-800/50 text-white rounded-full transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Media Content Container */}
+            <div 
+              className="relative max-w-4xl max-h-[85vh] w-full flex items-center justify-center overflow-hidden rounded-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {previewMedia.file_type === 'video' ? (
+                <video
+                  src={getMediaUrl(previewMedia.file_url)}
+                  controls
+                  autoPlay
+                  className="max-w-full max-h-[80vh] rounded-xl object-contain shadow-2xl border border-red-900/30"
+                />
+              ) : (
+                <img
+                  src={getMediaUrl(previewMedia.file_url)}
+                  alt={previewMedia.title}
+                  className="max-w-full max-h-[80vh] rounded-xl object-contain shadow-2xl border border-red-900/30"
+                />
+              )}
+            </div>
+
+            {/* Title / Description */}
+            <div className="mt-4 text-center" onClick={(e) => e.stopPropagation()}>
+              <h3 className="text-lg md:text-xl font-bold text-gray-100">
+                {previewMedia.title || 'Media Preview'}
+              </h3>
+              <p className="text-xs text-gray-400 mt-1 uppercase tracking-wider">
+                {previewMedia.media_type === 'demo' ? 'Free Demo' : 'Exclusive Unlocked'}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
