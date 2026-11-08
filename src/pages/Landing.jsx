@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import mainHomeImage from '../../../assets/mainhome.png';
+const mainHomeImage = '/mainhome.png';
 
 /* ─────────────────────────────────────────────
    Decorative floating heart component
