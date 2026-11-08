@@ -1,0 +1,367 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700;900&family=Cinzel+Decorative:wght@400;700;900&family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-dark-950 text-white;
+    font-family: 'Noto Sans Bengali', 'Playfair Display', system-ui, sans-serif;
+  }
+
+  * {
+    @apply scrollbar-thin scrollbar-thumb-primary-600 scrollbar-track-dark-900;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl;
+  }
+
+  .btn-secondary {
+    @apply bg-dark-800 hover:bg-dark-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 border border-dark-600 hover:border-primary-600;
+  }
+
+  .card {
+    @apply bg-dark-900 rounded-xl p-6 shadow-xl border border-dark-800 hover:border-primary-600 transition-all duration-300;
+  }
+
+  .input {
+    @apply w-full bg-dark-800 border border-dark-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 transition-all;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent;
+  }
+}
+
+/* Scrollbar styles */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thumb-primary-600::-webkit-scrollbar-thumb {
+  background-color: #dc2626;
+  border-radius: 3px;
+}
+
+.scrollbar-track-dark-900::-webkit-scrollbar-track {
+  background-color: #0a0a0a;
+}
+
+/* Loading animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* ============================================
+   HERO TYPOGRAPHY - Script Fonts
+   ============================================ */
+
+.script-title {
+  font-family: 'Great Vibes', cursive;
+  letter-spacing: 0.02em;
+}
+
+.serif-title {
+  font-family: 'Cinzel Decorative', serif;
+  letter-spacing: 0.05em;
+}
+
+/* Red Neon Glow Text Effect */
+.neon-red-text {
+  color: #fff;
+  text-shadow:
+    0 0 7px #fff,
+    0 0 10px #fff,
+    0 0 21px #fff,
+    0 0 42px #dc2626,
+    0 0 82px #dc2626,
+    0 0 92px #dc2626,
+    0 0 102px #dc2626,
+    0 0 151px #dc2626;
+}
+
+/* Crimson Glow Text */
+.crimson-glow {
+  color: #ff2244;
+  text-shadow:
+    0 0 10px rgba(220, 38, 38, 0.8),
+    0 0 20px rgba(220, 38, 38, 0.6),
+    0 0 40px rgba(220, 38, 38, 0.4),
+    0 0 80px rgba(220, 38, 38, 0.2);
+  -webkit-text-stroke: 0.5px rgba(255, 100, 100, 0.3);
+}
+
+/* Glossy Red Text */
+.glossy-red {
+  background: linear-gradient(
+    180deg,
+    #ff6b6b 0%,
+    #dc2626 25%,
+    #991b1b 50%,
+    #dc2626 75%,
+    #ff6b6b 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(220, 38, 38, 0.6)) drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* Kingdom glossy gold-red */
+.kingdom-text {
+  background: linear-gradient(
+    135deg,
+    #ffd700 0%,
+    #ff6b35 20%,
+    #dc2626 40%,
+    #ff4455 60%,
+    #ffd700 80%,
+    #ff6b35 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 12px rgba(220, 38, 38, 0.8)) drop-shadow(0 4px 8px rgba(0,0,0,0.6));
+}
+
+/* Pulsing heart animation */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  50% { transform: scale(0.95); }
+  75% { transform: scale(1.05); }
+}
+
+.heartbeat {
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+/* Floating animation */
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+.float-anim {
+  animation: floatUp 4s ease-in-out infinite;
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #dc2626 0%,
+    #ff6b6b 25%,
+    #ffffff 50%,
+    #ff6b6b 75%,
+    #dc2626 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Particle red dots */
+@keyframes drift {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
+  33% { transform: translateY(-20px) translateX(10px) scale(1.1); opacity: 1; }
+  66% { transform: translateY(-10px) translateX(-8px) scale(0.9); opacity: 0.8; }
+  100% { transform: translateY(-30px) translateX(5px) scale(1); opacity: 0; }
+}
+
+.particle {
+  animation: drift linear infinite;
+  pointer-events: none;
+}
+
+/* Red vignette overlay */
+.vignette {
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(10,0,0,0.7) 100%);
+}
+
+/* Mobile safe area */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .safe-bottom {
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* Gradient border button */
+.btn-login-sticky {
+  background: linear-gradient(135deg, #1a0000 0%, #2d0000 50%, #1a0000 100%);
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  box-shadow:
+    0 0 20px rgba(220, 38, 38, 0.4),
+    0 0 40px rgba(220, 38, 38, 0.2),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.btn-login-sticky::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #dc2626, #ff4455, #991b1b, #dc2626);
+  z-index: -1;
+}
+
+.btn-login-sticky:hover {
+  box-shadow:
+    0 0 30px rgba(220, 38, 38, 0.6),
+    0 0 60px rgba(220, 38, 38, 0.3),
+    inset 0 1px 0 rgba(255,255,255,0.15);
+  transform: translateY(-1px);
+}
+
+/* Red ambient light effect */
+.red-ambient {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220, 38, 38, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+/* ============================================
+   MOBILE-ONLY REFINEMENTS
+   (max-width: 767px — below md breakpoint)
+   ============================================ */
+@media (max-width: 767px) {
+
+  /* Mobile Homepage Image - Full responsive display */
+  .mobile-homepage-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .mobile-homepage-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    max-width: 100%;
+    max-height: 100vh;
+  }
+
+  /* Ensure image never crops or distorts */
+  img[src*="home2.png"] {
+    object-fit: contain !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 100vh !important;
+  }
+
+  /* Stronger ambient glow on mobile */
+  .red-ambient {
+    filter: blur(50px);
+    opacity: 0.9;
+  }
+
+  /* Script title on mobile: tighter but still elegant */
+  .script-title {
+    font-family: 'Great Vibes', cursive;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* "Welcome to Urmi's" — left side glow pulse */
+  @keyframes leftTextPulse {
+    0%, 100% {
+      text-shadow:
+        0 0 8px rgba(220,38,38,0.9),
+        0 0 20px rgba(220,38,38,0.5),
+        0 2px 6px rgba(0,0,0,1);
+    }
+    50% {
+      text-shadow:
+        0 0 12px rgba(220,38,38,1),
+        0 0 30px rgba(220,38,38,0.65),
+        0 0 50px rgba(220,38,38,0.25),
+        0 2px 6px rgba(0,0,0,1);
+    }
+  }
+
+  /* "Kingdom" — right side shimmer pulse */
+  @keyframes kingdomPulse {
+    0%, 100% {
+      filter:
+        drop-shadow(0 0 6px rgba(220,38,38,0.9))
+        drop-shadow(0 0 14px rgba(220,38,38,0.5))
+        drop-shadow(0 3px 6px rgba(0,0,0,0.95));
+    }
+    50% {
+      filter:
+        drop-shadow(0 0 10px rgba(220,38,38,1))
+        drop-shadow(0 0 24px rgba(220,38,38,0.7))
+        drop-shadow(0 0 40px rgba(220,38,38,0.3))
+        drop-shadow(0 3px 6px rgba(0,0,0,0.95));
+    }
+  }
+
+  /* Apply pulses via utility classes set in JSX */
+  .mobile-welcome-pulse {
+    animation: leftTextPulse 3s ease-in-out infinite;
+  }
+
+  .mobile-kingdom-pulse {
+    animation: kingdomPulse 2.8s ease-in-out infinite;
+  }
+
+  /* Heartbeat on mobile — slightly slower, more sultry */
+  .heartbeat {
+    animation: heartbeat 2.4s ease-in-out infinite;
+  }
+
+  /* Sticky button on mobile — enhanced glow */
+  .btn-login-sticky {
+    box-shadow:
+      0 0 24px rgba(220, 38, 38, 0.5),
+      0 0 48px rgba(220, 38, 38, 0.25),
+      inset 0 1px 0 rgba(255,255,255,0.12);
+  }
+
+  .btn-login-sticky:active {
+    transform: scale(0.97);
+    box-shadow:
+      0 0 16px rgba(220, 38, 38, 0.6),
+      0 0 32px rgba(220, 38, 38, 0.3);
+  }
+
+  /* Floating hearts — mobile size scale down */
+  .particle {
+    transform: scale(0.75);
+  }
+}
