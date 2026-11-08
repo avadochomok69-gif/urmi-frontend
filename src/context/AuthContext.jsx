@@ -16,11 +16,14 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Configure axios defaults (dynamic for localhost & network access)
+  // Configure axios defaults (support VITE_API_URL, dynamic local/network host)
+  const envApiUrl = import.meta.env.VITE_API_URL;
   const host = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-  axios.defaults.baseURL = host === 'localhost' || host === '127.0.0.1'
-    ? 'http://localhost:5000'
-    : `http://${host}:5000`;
+  axios.defaults.baseURL = envApiUrl 
+    ? envApiUrl 
+    : (host === 'localhost' || host === '127.0.0.1'
+        ? 'http://localhost:5000'
+        : `http://${host}:5000`);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
