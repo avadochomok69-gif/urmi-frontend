@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { ArrowLeft, Lock, Crown, Eye, Play } from 'lucide-react';
+import { getMediaUrl } from '../utils/mediaUrl';
 
 /* ─────────────────────────────────────────────
    Media Item Component
@@ -59,7 +60,7 @@ const MediaItem = ({ item, index }) => {
         ) : isVideo ? (
           /* Video Player */
           <video
-            src={item.file_url}
+            src={getMediaUrl(item.file_url)}
             controls
             className="w-full h-full object-cover"
             style={{ background: '#000' }}
@@ -70,7 +71,7 @@ const MediaItem = ({ item, index }) => {
         ) : (
           /* Photo */
           <img
-            src={item.file_url}
+            src={getMediaUrl(item.file_url)}
             alt={item.title}
             className="w-full h-full object-cover"
             loading="lazy"
@@ -185,7 +186,7 @@ const PackageDemo = () => {
               {/* Package thumbnail */}
               {pkg.thumbnail && (
                 <img
-                  src={pkg.thumbnail}
+                  src={getMediaUrl(pkg.thumbnail)}
                   alt={pkg.title}
                   className="w-full md:w-40 h-40 object-cover rounded-xl flex-shrink-0"
                   style={{ border: '1px solid rgba(220,38,38,0.3)' }}

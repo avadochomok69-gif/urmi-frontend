@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { getMediaUrl } from '../utils/mediaUrl';
 const mainHomeImage = '/mainhome.png';
 
 /* ─────────────────────────────────────────────
@@ -45,13 +46,12 @@ const PackageCard = ({ pkg, onSeeDemo }) => {
         style={{ background: 'radial-gradient(circle, rgba(220,38,38,0.15) 0%, transparent 70%)', filter: 'blur(20px)' }} />
 
       {/* Featured Image */}
-      <div className="relative w-full overflow-hidden" style={{ height: '200px' }}>
+      <div className="relative w-full overflow-hidden flex items-center justify-center bg-black/60" style={{ height: '200px' }}>
         {pkg.thumbnail ? (
           <img
-            src={pkg.thumbnail}
+            src={getMediaUrl(pkg.thumbnail)}
             alt={pkg.title}
-            className="w-full h-full object-cover"
-            style={{ filter: 'brightness(0.85)' }}
+            className="w-full h-full object-contain"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center"

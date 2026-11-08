@@ -5,6 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { ArrowLeft, Copy, Check, User, Camera, Upload, X } from 'lucide-react';
+import { getMediaUrl } from '../utils/mediaUrl';
 
 const Checkout = () => {
   const { packageId } = useParams();
@@ -178,7 +179,7 @@ const Checkout = () => {
           >
             <div className="flex items-center gap-4">
               {package_.thumbnail && (
-                <img src={package_.thumbnail} alt={package_.title}
+                <img src={getMediaUrl(package_.thumbnail)} alt={package_.title}
                   className="w-20 h-20 object-cover rounded-xl flex-shrink-0"
                   style={{ border: '1px solid rgba(220,38,38,0.3)' }} />
               )}
