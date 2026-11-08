@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Video, Image, Phone, ArrowLeft, ShoppingCart, Crown } from 'lucide-react';
+import { getMediaUrl } from '../utils/mediaUrl';
 
 const categoryIcons = {
   calling: Phone,
@@ -121,13 +122,12 @@ const Packages = () => {
                 >
                   {/* Thumbnail */}
                   {pkg.thumbnail ? (
-                    <div className="relative h-48 mb-4 rounded-lg overflow-hidden">
+                    <div className="relative h-48 mb-4 rounded-lg overflow-hidden bg-black/40 flex items-center justify-center">
                       <img
-                        src={pkg.thumbnail}
+                        src={getMediaUrl(pkg.thumbnail)}
                         alt={pkg.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-dark-900 to-transparent" />
                     </div>
                   ) : (
                     <div className="h-48 mb-4 bg-dark-800 rounded-lg flex items-center justify-center">

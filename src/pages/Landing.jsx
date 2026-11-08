@@ -45,13 +45,14 @@ const PackageCard = ({ pkg, onSeeDemo }) => {
       <div className="absolute top-0 right-0 w-32 h-32 rounded-full pointer-events-none"
         style={{ background: 'radial-gradient(circle, rgba(220,38,38,0.15) 0%, transparent 70%)', filter: 'blur(20px)' }} />
 
-      {/* Featured Image */}
-      <div className="relative w-full overflow-hidden flex items-center justify-center bg-black/60" style={{ height: '200px' }}>
+      {/* Featured Image - 100% clear, contain mode without dark gradient/shadow */}
+      <div className="relative w-full overflow-hidden flex items-center justify-center bg-black/40" style={{ height: '220px' }}>
         {pkg.thumbnail ? (
           <img
             src={getMediaUrl(pkg.thumbnail)}
             alt={pkg.title}
             className="w-full h-full object-contain"
+            style={{ filter: 'none' }}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center"
@@ -61,13 +62,10 @@ const PackageCard = ({ pkg, onSeeDemo }) => {
             </svg>
           </div>
         )}
-        {/* Gradient overlay at bottom of image */}
-        <div className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, transparent 50%, #0d0d0d 100%)' }} />
         {/* Premium badge */}
-        <div className="absolute top-3 left-3">
-          <span className="text-xs font-bold tracking-widest uppercase px-2 py-1 rounded-full"
-            style={{ background: 'rgba(220,38,38,0.85)', color: '#fff', letterSpacing: '0.1em' }}>
+        <div className="absolute top-3 left-3 z-10">
+          <span className="text-xs font-bold tracking-widest uppercase px-2 py-1 rounded-full shadow-md"
+            style={{ background: 'rgba(220,38,38,0.9)', color: '#fff', letterSpacing: '0.1em' }}>
             ♦ Premium
           </span>
         </div>
