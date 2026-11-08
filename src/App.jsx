@@ -10,6 +10,7 @@ import PackageDemo from './pages/PackageDemo';
 import Checkout from './pages/Checkout';
 import Dashboard from './pages/Dashboard';
 import MyContent from './pages/MyContent';
+import MyPackages from './pages/MyPackages';
 import ContentView from './pages/ContentView';
 import OrderConfirmation from './pages/OrderConfirmation';
 
@@ -56,6 +57,11 @@ function App() {
         <Route path="/checkout/:packageId" element={
           <PrivateRoute>
             <Checkout />
+          </PrivateRoute>
+        } />
+        <Route path="/my-packages" element={
+          <PrivateRoute>
+            <MyPackages />
           </PrivateRoute>
         } />
         <Route path="/dashboard" element={

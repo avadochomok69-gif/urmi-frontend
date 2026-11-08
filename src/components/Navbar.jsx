@@ -26,12 +26,16 @@ const Navbar = () => {
         </Link>
 
         {/* Right Side: Navigation & Login Button */}
-        <div className="flex items-center gap-3 md:gap-4">
+        <div className="flex items-center gap-2 md:gap-3">
           {isAuthenticated ? (
             <div className="flex items-center gap-2 md:gap-3">
-              <span className="text-xs md:text-sm text-gray-300 font-medium hidden sm:inline-block">
-                {user?.name || user?.email || user?.phone}
-              </span>
+              <Link
+                to="/my-packages"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs md:text-sm font-bold text-white bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 shadow-md shadow-red-900/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <Package className="w-3.5 h-3.5" />
+                <span>My Packages</span>
+              </Link>
               <button
                 onClick={handleLogout}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs md:text-sm font-semibold text-gray-300 bg-red-950/40 hover:bg-red-900/60 border border-red-800/40 transition-colors"
@@ -56,3 +60,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
